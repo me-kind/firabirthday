@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/CSSRulePlugin.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela+Round&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manjari:wght@700&amp;display=swap">
+</head>
+
+<body>
+
+    <video autoplay loop muted plays-inline class="backvid">
+        <source src="./sunrise-7127.mp4" type="video/mp4">
+    </video>
+    <audio controls autoplay hidden loop>
+        <source src="./happy_birthday.mp3" type="audio/ogg">
+    </audio>
+
+    <div class="container">
+        <div class="content">
+            <div class="envelope" onclick="openCard()"></div>
+            <div class="letter">
+                <div class="body">
+                    <span class="close" onclick="event.stopPropagation(); closeCard()">x</span>
+                    <div class="message">Happy BirthDay Firaa ☺ pagal</div>
+                </div>
+            </div>
+            <div class="shadow"></div>
+        </div>
+    </div>
+
+    <script>
+        let t1 = gsap.timeline({ paused: true });
+        let flap = CSSRulePlugin.getRule(".envelope:before");
+
+        t1.to(flap, {
+            duration: 0.5,
+            cssRule: {
+                rotateX: 180
+            }
+        })
+            .set(flap, {
+                cssRule: {
+                    zIndex: 10
+                }
+            })
+            .to('.letter', {
+                translateY: -200,
+                duration: 0.9,
+                ease: "back.inOut(1.5)"
+            })
+            .set('.letter', {
+                zIndex: 40
+            })
+            .to('.letter', {
+                duration: .7,
+                ease: "back.out(.4)",
+                translateY: -5,
+                translateZ: 250
+            });
+
+        let t2 = gsap.timeline({ paused: true });
+        t2.to('.shadow', {
+            delay: 1.4,
+            width: 450,
+            boxShadow: "-75px 150px 10px 5px #eeeef3",
+            ease: "back.out(.2)",
+            duration: .7
+        });
+
+        function openCard(e) {
+            t1.play();
+            t2.play();
+        }
+
+        function closeCard(e) {
+            t1.reverse();
+            t2.reverse();
+        }
+
+    </script>
+</body>
+
+</html>
